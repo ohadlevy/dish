@@ -1,0 +1,21 @@
+A simple web browser for Unix system packages 
+
+WORK IN PROGRESS!!
+
+Usage instructions:
+
+  git clone github.com/ohadlevy/dish.git
+  cd dish
+  git submodule init
+  git submodule update
+  rake db:migrate
+
+modify script/import to have a host list - get it somehow (I use it from foreman)
+
+run ./script runner ./script/import (you would need ssh access to the remote machines & facter installed)
+
+start your webserver (./script/server)
+you would not need to wait until it finishes.
+
+most likely this will be end up as part of theforeman.org project.
+ohadlevy@gmail.com

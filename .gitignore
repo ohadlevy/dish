@@ -1,0 +1,8 @@
+*~
+db/*.sqlite3
+db/schema.rb
+log/*
+tmp/*
+config/app_config.yml
+*.swp
+doc/*

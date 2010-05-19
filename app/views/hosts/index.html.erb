@@ -1,0 +1,23 @@
+<% title "Hosts" %>
+<%= render 'common/search' %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Package Count</th>
+    <th></th>
+  </tr>
+  <% for host in @hosts %>
+    <tr>
+      <td><%=link_to host.name, host %></td>
+      <td><%=h @counter[host.id.to_s] %></td>
+      <td>
+        <%= link_to "Destroy", host, :confirm => 'Are you sure?', :method => :delete %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= page_entries_info @hosts %>
+<%= will_paginate @hosts %>
+<p><%= link_to "New Host", new_host_path %></p>

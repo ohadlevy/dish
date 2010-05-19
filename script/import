@@ -1,0 +1,30 @@
+#! env ruby
+
+require "~/scripts/ssh/foreman.rb"
+domain = ARGV[1]
+
+hosts=gethosts({"fact"=> {"domain" => domain, "kernel" => "Linux"}})
+
+
+for host in hosts
+  puts "importing #{host}"
+  opts = {}
+  opts[:name] = host
+  splitter = "!!~split~!!"
+  cmd = "ssh root@#{host} 'facter operatingsystem lsbdistrelease && echo #{splitter} &&  rpm -qa --qf  \"%{name}===%{version}-%{release}===%{arch} \n\"'"
+  output = %x{#{cmd}}
+  next if output.nil?
+  helper , list = output.split("#{splitter}\n")
+  os = ""
+  helper.split("\n").each do |l|
+    if l =~ /^operatingsystem => (.*)$/
+      os = $1 + os
+    end
+    if l =~ /^lsbdistrelease =>(.*)$/
+      os = os + $1
+    end
+  end
+  opts[:os] = os
+  Mux.importRpm opts, list
+end 
+

@@ -1,0 +1,18 @@
+<% title "Packages" %>
+<%= render 'common/search' %>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Number of hosts<th>
+  </tr>
+  <% for package in @packages %>
+    <tr>
+      <td><%= link_to package.name, package %></td>
+      <td><%= @counter[package.id.to_s] %></td>
+      <td><%= link_to_if logged_in?, "Destroy", package, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+<%= page_entries_info @packages %>
+<%= will_paginate @packages %>
+<p><%= link_to "New Package", new_package_path %></p>

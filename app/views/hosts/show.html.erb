@@ -1,0 +1,20 @@
+<% title "Host" %>
+
+<p>
+  <strong>Name:</strong>
+  <%=h @host.name %> (<%= @host.os %>)
+</p>
+Total number of packages: <%= @host.packages.count %>
+
+<% for package in @packages -%> <br>
+  <%= link_to @host.package(package), package %> 
+<% end -%>
+<br>
+<%= page_entries_info @packages %>
+<%= will_paginate @packages %>
+
+<p>
+  <%= link_to "Edit", edit_host_path(@host) %> |
+  <%= link_to "Destroy", @host, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", hosts_path %>
+</p>
