@@ -7,7 +7,8 @@ class HostsController < ApplicationController
 
   def show
     @host = Host.find(params[:id])
-    @packages = @host.packages.all.paginate :page => params[:page]
+    @search = @host.packages.search params[:search]
+    @packages = @search.all.paginate :page => params[:page]
   end
 
   def new
