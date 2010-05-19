@@ -4,3 +4,9 @@
 [submodule "vendor/plugins/searchlogic"]
 	path = vendor/plugins/searchlogic
 	url = git://github.com/binarylogic/searchlogic.git
+[submodule "vendor/rails"]
+	path = vendor/rails
+	url = git://github.com/rails/rails.git
+[submodule "vendor/gems/rack-1.0.1"]
+	path = vendor/gems/rack-1.0.1
+	url = git://github.com/chneukirchen/rack.git
