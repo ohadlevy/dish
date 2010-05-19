@@ -8,7 +8,7 @@ class Mux < ActiveRecord::Base
 #  validates_uniqueness_of :host, :scope => :package
   validates_associated :host, :package, :version, :arch, :os
 
-  def self.importRpm(host, list, seperator = "===")
+  def self.import(host, list, seperator = "===")
     h = Host.find_or_create_by_name host[:name]
     os = Os.find_or_create_by_name host[:os]
 

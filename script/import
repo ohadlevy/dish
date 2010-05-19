@@ -5,13 +5,16 @@ domain = ARGV[1]
 
 hosts=gethosts({"fact"=> {"domain" => domain, "kernel" => "Linux"}})
 
+# toggle this based on your os - we'll add the logic later on
+rpm_cmd = "rpm -qa --qf  \"%{name}===%{version}-%{release}===%{arch} \n\""
+dpkg_cmd = "dpkg-query -W -f=\\${Package}===\\${Version}===\\${Architecture}\\\\n"
 
 for host in hosts
   puts "importing #{host}"
   opts = {}
   opts[:name] = host
   splitter = "!!~split~!!"
-  cmd = "ssh root@#{host} 'facter operatingsystem lsbdistrelease && echo #{splitter} &&  rpm -qa --qf  \"%{name}===%{version}-%{release}===%{arch} \n\"'"
+  cmd = "ssh #{host} 'facter operatingsystem lsbdistrelease && echo #{splitter} && #{dpkg_cmd}'"
   output = %x{#{cmd}}
   next if output.nil?
   helper , list = output.split("#{splitter}\n")
@@ -25,6 +28,8 @@ for host in hosts
     end
   end
   opts[:os] = os
-  Mux.importRpm opts, list
+  t=Time.now
+  Mux.import opts, list
+  puts "finished #{host} in #{Time.now - t} seconds"
 end 
 
