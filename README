@@ -12,7 +12,7 @@ Usage instructions:
 
 modify script/import to have a host list - get it somehow (I use it from foreman)
 
-run ./script runner ./script/import (you would need ssh access to the remote machines & facter installed)
+run ./script/runner ./script/import (you would need ssh access to the remote machines & facter installed)
 
 start your webserver (./script/server)
 you would not need to wait until it finishes.
