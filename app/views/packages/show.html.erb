@@ -11,7 +11,7 @@
   </tr>
   <% @package.versions(:group => @package.oss).each do |ver| -%>
     <tr>
-      <td><strong> <%= "#{ver} <small>(#{ver.oss})</small>" %> </strong></td>
+      <td><strong> <%= "#{ver} <small>(#{ver.oss.to_sentence})</small>" %> </strong></td>
       <td><%= ver.hosts.map{|h| link_to h.name, h}.join(" ") %> </td>
     </tr>
   <% end -%>

@@ -15,7 +15,7 @@ class Host < ActiveRecord::Base
     if m = Mux.find(:first, :conditions => {:host_id => self, :package_id => p})
       v = Version.find m.version_id
     end
-    "#{pkg}-#{v}"
+    "#{pkg}-#{v}-#{Arch.find(m.arch)}"
   end
 
 end
