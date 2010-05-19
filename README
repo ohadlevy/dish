@@ -4,7 +4,7 @@ WORK IN PROGRESS!!
 
 Usage instructions:
 
-  git clone github.com/ohadlevy/dish.git
+  git clone git://github.com/ohadlevy/dish.git
   cd dish
   git submodule init
   git submodule update
