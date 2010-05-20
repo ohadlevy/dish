@@ -8,9 +8,9 @@ class Mux < ActiveRecord::Base
 #  validates_uniqueness_of :host, :scope => :package
   validates_associated :host, :package, :version, :arch, :os
 
-  def self.import(host, list, seperator = "===")
-    h = Host.find_or_create_by_name host[:name]
-    os = Os.find_or_create_by_name host[:os]
+  def self.import(host, os, list, seperator = "===")
+    h = host.is_a?(Host) ? host : Host.find_by_name(host)
+    os = Os.find_or_create_by_name os
 
     list.each_line do |line|
       pkg, version, arch = line.split(seperator).map{|s| s.chomp.strip}

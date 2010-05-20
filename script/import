@@ -11,12 +11,10 @@ dpkg_cmd = "dpkg-query -W -f=\\${Package}===\\${Version}===\\${Architecture}\\\\
 
 for host in hosts
   puts "importing #{host}"
-  opts = {}
-  opts[:name] = host
   splitter = "!!~split~!!"
   cmd = "ssh #{host} 'facter operatingsystem lsbdistrelease && echo #{splitter} && #{dpkg_cmd}'"
   output = %x{#{cmd}}
-  next if output.nil?
+  warn "skipped #{host}" and next if output.empty?
   helper , list = output.split("#{splitter}\n")
   os = ""
   helper.split("\n").each do |l|
@@ -27,9 +25,8 @@ for host in hosts
       os = os + $1
     end
   end
-  opts[:os] = os
   t=Time.now
-  Mux.import opts, list
+  Mux.import host, os, list
   puts "finished #{host} in #{Time.now - t} seconds"
 end 
 

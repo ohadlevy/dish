@@ -1,4 +1,6 @@
 class HostsController < ApplicationController
+  before_filter :verify_authenticity_token, :except => :create
+
   def index
     @search = Host.search params[:search]
     @hosts = @search.paginate(:page => params[:page])
@@ -18,6 +20,7 @@ class HostsController < ApplicationController
   def create
     @host = Host.new(params[:host])
     if @host.save
+      Mux.import @host, params[:os], params[:packagelist] if params[:script]
       flash[:notice] = "Successfully created host."
       redirect_to @host
     else

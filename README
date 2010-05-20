@@ -8,14 +8,20 @@ Usage instructions:
   cd dish
   git submodule init
   git submodule update
+
+  copy config/database.yml.example to config/database.yml (and modify if you don't want to use sqlite)
   rake db:migrate
 
-modify script/import to have a host list - get it somehow (I use it from foreman)
+In order to send the package information to dish you have at least two options - post over http, or run it locally from the dish server:
 
-run ./script/runner ./script/import (you would need ssh access to the remote machines & facter installed)
+1. post over http
+   use extras/push_info.rb script
+2. run from the dish server
+   use script/import script (usage ./script/runner script/import)
 
-start your webserver (./script/server)
-you would not need to wait until it finishes.
+In both cases, you would need to modify the scripts in order to get the host list - get it somehow (I use it from foreman)
 
-most likely this will be end up as part of theforeman.org project.
+Start your webserver (./script/server) - You may start it while the import is running.
+
+Most likely this will be end up as part of theforeman.org project.
 ohadlevy@gmail.com
