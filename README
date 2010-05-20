@@ -21,6 +21,9 @@ In order to send the package information to dish you have at least two options -
 
 In both cases, you would need to modify the scripts in order to get the host list - get it somehow (I use it from foreman)
 
+start the background service (as we process the package information in the background not to keep the web browser busy)
+rake jobs:work (leave it running)
+
 Start your webserver (./script/server) - You may start it while the import is running.
 
 Most likely this will be end up as part of theforeman.org project.

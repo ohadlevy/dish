@@ -1,5 +1,6 @@
 class HostsController < ApplicationController
   before_filter :verify_authenticity_token, :except => :create
+  filter_parameter_logging :packagelist
 
   def index
     @search = Host.search params[:search]
@@ -20,7 +21,7 @@ class HostsController < ApplicationController
   def create
     @host = Host.new(params[:host])
     if @host.save
-      Mux.import @host, params[:os], params[:packagelist] if params[:script]
+      Delayed::Job.enqueue Importer.new(@host, params[:os], params[:packagelist]) if params[:script]
       flash[:notice] = "Successfully created host."
       redirect_to @host
     else
