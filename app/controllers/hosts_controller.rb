@@ -10,8 +10,8 @@ class HostsController < ApplicationController
 
   def show
     @host = Host.find(params[:id])
-    @search = @host.packages.search params[:search]
-    @packages = @search.all.paginate :page => params[:page]
+    @search = Package.search params[:search]
+    @packages = @search.paginate(:conditions => {:muxes => {:host_id => @host}}, :joins => :muxes, :page => params[:page])
   end
 
   def new
@@ -21,12 +21,12 @@ class HostsController < ApplicationController
   def create
     @host = Host.new(params[:host])
     if @host.save
-      Delayed::Job.enqueue Importer.new(@host, params[:os], params[:packagelist]) if params[:script]
       flash[:notice] = "Successfully created host."
       redirect_to @host
     else
       render :action => 'new'
     end
+    Delayed::Job.enqueue Importer.new(@host.name, params[:os], params[:packagelist]) if params[:script]
   end
 
   def edit

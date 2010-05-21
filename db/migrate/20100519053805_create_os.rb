@@ -5,6 +5,7 @@ class CreateOs < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :os, :name
   end
 
   def self.down

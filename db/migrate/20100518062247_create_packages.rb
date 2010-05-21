@@ -4,6 +4,7 @@ class CreatePackages < ActiveRecord::Migration
       t.column :name, :string
       t.timestamps
     end
+    add_index :packages, :name
   end
 
   def self.down

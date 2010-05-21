@@ -82,3 +82,8 @@ a {
 .pagination {
   float: right;
 }
+#menu {
+  position: absolute;
+  top: 25px;
+  left: 80%;
+}

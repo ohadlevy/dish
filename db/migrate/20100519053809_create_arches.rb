@@ -5,6 +5,7 @@ class CreateArches < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :arches, :name
   end
 
   def self.down

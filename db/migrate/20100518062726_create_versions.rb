@@ -4,6 +4,7 @@ class CreateVersions < ActiveRecord::Migration
       t.column :value, :string
       t.timestamps
     end
+    add_index :versions, :value
   end
 
   def self.down

@@ -4,6 +4,7 @@ class CreateHosts < ActiveRecord::Migration
       t.string :name
       t.timestamps
     end
+    add_index :hosts, :name
   end
 
   def self.down
