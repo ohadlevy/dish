@@ -5,12 +5,14 @@
   <tr>
     <th>Name</th>
     <th>Package Count</th>
+    <th>Last Update<th>
     <th></th>
   </tr>
   <% for host in @hosts %>
     <tr>
       <td><%=link_to host.name, host %></td>
       <td><%=h @counter[host.id.to_s] %></td>
+      <td><%= time_ago_in_words host.updated_at %></td>
       <td>
         <%= link_to "Destroy", host, :confirm => 'Are you sure?', :method => :delete %>
       </td>

@@ -31,5 +31,6 @@ class Mux < ActiveRecord::Base
     # search for changed packages (deleted, updated etc)
     # using destory_all as we need to destroy any non required packages/versions
     Mux.destroy_all(:id => current_list)unless current_list.empty?
+    h.update_attribute(:updated_at => Time.now)
   end
 end

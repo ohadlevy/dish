@@ -10,12 +10,12 @@ class Host < ActiveRecord::Base
     name
   end
 
-  def package pkg
-    p = pkg.is_a?(Package) ? pkg : Package.find_by_name(pkg)
-    if m = Mux.find(:first, :conditions => {:host_id => self, :package_id => p})
-      v = Version.find m.version_id
+  def package_details pkg
+    a = []
+    Mux.all(:conditions => {:host_id => self, :package_id => pkg}, :include => [:version, :arch]).each do |m|
+      a << "#{m.version}(#{m.arch})"
     end
-    "#{pkg}-#{v}-#{Arch.find(m.arch)}"
+    return a
   end
 
 end
