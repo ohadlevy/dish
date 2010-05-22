@@ -9,28 +9,27 @@ class Mux < ActiveRecord::Base
     h = host.is_a?(Host) ? host : Host.find_by_name(host)
     os = Os.find_or_create_by_name os
     current_list = Mux.all(:conditions => {:host_id => h})
-    packages = Package.all
-    versions = Version.all
-    arches = Arch.all
+    parsed = []
 
     list.each_line do |line|
       pkg, version, arch = line.split(seperator).map{|s| s.chomp.strip}
 
-      p = packages.find {|r| r.name == pkg}      || Package.create(:name => pkg)
-      v = versions.find {|r| r.value == version} || Version.create(:value => version)
-      a = arches.find   {|r| r.name == arch}     || Arch.create(:name => arch)
+      unless m=Mux.first(:joins => [:package, :version, :arch],
+                :conditions => {:host_id => h.id, :os_id => os.id, :packages => {:name => pkg},
+                  :versions => {:value => version}, :arches => {:name => arch}})
 
-      # check if we already have this record
-      exists = current_list.empty? ? false : (not (current_list.reject! do |r|
-        r.host_id == h.id && r.package_id == p.id && r.arch_id == a.id && r.version_id == v.id
-      end).nil?)
+        p = Package.find_or_create_by_name(pkg).id
+        v = Version.find_or_create_by_value(version).id
+        a = Arch.find_or_create_by_name(arch).id
+        m = Mux.create(:host => h, :package_id => p, :version_id => v, :arch_id => a, :os => os)
+      end
+      parsed << m
 
-      Mux.create :host => h, :package => p, :version => v, :arch => a, :os => os unless exists
     end
-
     # search for changed packages (deleted, updated etc)
-    # using destory_all as we need to destroy any non required packages/versions
-    Mux.destroy_all(:id => current_list)unless current_list.empty?
-    h.update_attribute(:updated_at => Time.now)
+    changes = current_list - parsed
+    logger.debug "Processed #{h.name}: #{changes.size} changes"
+    Mux.delete_all(:id => changes.map(&:id)) unless changes.empty?
+    h.update_attribute(:updated_at, Time.now)
   end
 end
