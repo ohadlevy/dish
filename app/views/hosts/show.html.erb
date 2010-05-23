@@ -1,4 +1,4 @@
-<% title "#{h @host.name} (#{@host.os})" %>
+<% title "#{h @host.name} (#{@muxes.first.os})" %>
 <%= render "common/search", :value => :package_name_like %>
 <table>
   <tr>
@@ -16,7 +16,7 @@
     </tr>
   <% end -%>
 </table>
-<%= page_entries_info @muxes %>
+<%= page_entries_info @muxes, :entry_name => "packages" %>
 <%= will_paginate @muxes %>
 
 <p>
