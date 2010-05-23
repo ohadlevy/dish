@@ -10,8 +10,8 @@ class HostsController < ApplicationController
 
   def show
     @host = Host.find(params[:id])
-    @search = Package.search params[:search]
-    @packages = @search.paginate(:conditions => {:muxes => {:host_id => @host}}, :joins => :muxes, :page => params[:page], :order => :name).uniq
+    @search = Mux.search params[:search]
+    @muxes = @search.paginate(:conditions => {:host_id => @host}, :joins => [:package, :version, :arch], :page => params[:page])
   end
 
   def new

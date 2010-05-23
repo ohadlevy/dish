@@ -1,6 +1,7 @@
 <span class=pagination>
+  <% value ||= "name_like" -%>
 <% form_for @search do |f|-%>
-  <%= f.text_field :name_like, :size => 10 %>
+  <%= f.text_field value, :size => 10 %>
   <%= f.submit "Search" %>
 <% end %>
 </span>

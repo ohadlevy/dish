@@ -10,12 +10,4 @@ class Host < ActiveRecord::Base
     name
   end
 
-  def package_details pkg
-    a = []
-    Mux.all(:conditions => {:host_id => self, :package_id => pkg}, :include => [:version, :arch]).each do |m|
-      a << "#{m.version}(#{m.arch})"
-    end
-    return a
-  end
-
 end

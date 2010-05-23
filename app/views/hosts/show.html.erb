@@ -1,21 +1,25 @@
 <% title "#{h @host.name} (#{@host.os})" %>
-<%= render "common/search" %>
+<%= render "common/search", :value => :package_name_like %>
 <table>
   <tr>
     <th>Package</th>
-    <th>Version(arch)</th>
+    <th>Version</th>
+    <th>Arch</th>
+    <th>Last changed</th>
   </tr>
-  <% for package in @packages -%>
+  <% for mux in @muxes -%>
     <tr>
-      <td><%= link_to h(package), package_path(package) %></td>
-      <td> <%= h @host.package_details(package).to_sentence %></td>
+      <td><%= link_to h(mux.package), package_path(mux.package) %></td>
+      <td><%= h mux.version %></td>
+      <td><%= h mux.arch %></td>
+      <td><%= time_ago_in_words mux.updated_at %></td>
     </tr>
   <% end -%>
 </table>
-<%= page_entries_info @packages %>
-<%= will_paginate @packages %>
+<%= page_entries_info @muxes %>
+<%= will_paginate @muxes %>
 
 <p>
 <%= link_to "View All", hosts_path %>
-<span class="pagination">last updated at <%= @host.updated_at %></span>
+<span class="pagination">last updated <%= time_ago_in_words @host.updated_at %> ago</span>
 </p>
