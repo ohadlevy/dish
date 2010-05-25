@@ -12,14 +12,11 @@ Usage instructions:
   copy config/database.yml.example to config/database.yml (and modify if you don't want to use sqlite)
   rake db:migrate
 
-In order to send the package information to dish you have at least two options - post over http, or run it locally from the dish server:
+In order to send the package information to dish you would need to run an import script (can be done from any machine in your network)
 
-1. post over http
-   use extras/push_info.rb script
-2. run from the dish server
-   use script/import script (usage ./script/runner script/import)
+	use extras/push_info.rb script
 
-In both cases, you would need to modify the scripts in order to get the host list - get it somehow (I use it from foreman)
+You would need to modify the script in order to get the host list - get it somehow (I use it from foreman)
 
 start the background service (as we process the package information in the background not to keep the web browser busy)
 rake jobs:work (leave it running)
