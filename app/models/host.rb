@@ -10,4 +10,8 @@ class Host < ActiveRecord::Base
     name
   end
 
+  def to_param
+    name
+  end
+
 end

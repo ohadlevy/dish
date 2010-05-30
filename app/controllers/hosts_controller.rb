@@ -9,7 +9,7 @@ class HostsController < ApplicationController
   end
 
   def show
-    @host = Host.find(params[:id])
+    @host = Host.find_by_name(params[:id])
     @search = Mux.search params[:search]
     @muxes = @search.paginate(:conditions => {:host_id => @host},
                               :include => [:package, :version, :arch],
@@ -33,11 +33,11 @@ class HostsController < ApplicationController
   end
 
   def edit
-    @host = Host.find(params[:id])
+    @host = Host.find_by_name(params[:id])
   end
 
   def update
-    @host = Host.find(params[:id])
+    @host = Host.find_by_name(params[:id])
     if @host.update_attributes(params[:host])
       flash[:notice] = "Successfully updated host."
       redirect_to @host
@@ -47,7 +47,7 @@ class HostsController < ApplicationController
   end
 
   def destroy
-    @host = Host.find(params[:id])
+    @host = Host.find_by_name(params[:id])
     @host.destroy
     flash[:notice] = "Successfully destroyed host."
     redirect_to hosts_url

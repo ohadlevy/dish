@@ -1,4 +1,4 @@
-<% title "#{h @host.name} (#{@muxes.first.os})" %>
+<% title "#{h @host.name} (#{@muxes.first.try(:os)})" %>
 <%= render "common/search", :value => :package_name_like %>
 <table>
   <tr>

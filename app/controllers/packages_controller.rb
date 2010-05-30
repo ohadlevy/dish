@@ -6,7 +6,7 @@ class PackagesController < ApplicationController
   end
 
   def show
-    @package = Package.find(params[:id])
+    @package = Package.find_by_name(params[:id])
   end
 
   def new
@@ -24,11 +24,11 @@ class PackagesController < ApplicationController
   end
 
   def edit
-    @package = Package.find(params[:id])
+    @package = Package.find_by_name(params[:id])
   end
 
   def update
-    @package = Package.find(params[:id])
+    @package = Package.find_by_name(params[:id])
     if @package.update_attributes(params[:package])
       flash[:notice] = "Successfully updated package."
       redirect_to @package
@@ -38,7 +38,7 @@ class PackagesController < ApplicationController
   end
 
   def destroy
-    @package = Package.find(params[:id])
+    @package = Package.find_by_name(params[:id])
     @package.destroy
     flash[:notice] = "Successfully destroyed package."
     redirect_to packages_url
