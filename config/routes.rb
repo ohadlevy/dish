@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :hosts, :requirements => {:id => /[^\/]+/}
 
-  map.resources :packages
+  map.resources :packages, :requirements => {:id => /[^\/]+/}
 
   map.resources :packages
   map.root :packages
