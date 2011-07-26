@@ -1,17 +1,17 @@
-#! /usr/bin/ruby
+#! /usr/bin/env ruby
 
 # URL where dish lives
-url="http://dish.sin.infineon.com"
+url="http://0.0.0.0:3000"
 
-require "~/scripts/ssh/foreman.rb"
 require 'net/http'
 require 'uri'
 
-domain = ARGV[0]
-hosts=gethosts({"fact"=> {"domain" => ARGV[0], "kernel" => "Linux"}})
+# hosts to loop though SSH
+hosts = %w{ host1 host2 host3 }
+
 # toggle this based on your os - we'll add the logic later on
 rpm_cmd = "rpm -qa --qf  \"%{name}===%{version}-%{release}===%{arch} \n\""
-dpkg_cmd = "dpkg-query -W -f=\\${Package}===\\${Version}===\\${Architecture}\\\\n"
+#dpkg_cmd = "dpkg-query -W -f=\\${Package}===\\${Version}===\\${Architecture}\\\\n"
 
 for host in hosts
   puts "importing #{host}"
@@ -31,7 +31,7 @@ for host in hosts
     end
     t=Time.now
     begin
-      Net::HTTP.post_form(URI.parse("#{url}/hosts/create"), {:script => true, "host[name]"=> host, :os => os, :packagelist => list })
+      Net::HTTP.post_form(URI.parse("#{url}/hosts"), {:script => true, "host[name]"=> host, :os => os, :packagelist => list })
       puts "finished #{host} in #{Time.now - t} seconds"
     rescue Exception => e
       raise "Could not send facts to dish: #{e}"
