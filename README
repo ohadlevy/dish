@@ -8,7 +8,7 @@ Usage instructions:
 
   git clone git://github.com/ohadlevy/dish.git
   cd dish
-	bundle install
+  bundle install
 
   copy config/database.yml.example to config/database.yml (and modify if you don't want to use sqlite)
   rake db:migrate
@@ -18,9 +18,8 @@ rake jobs:work (leave it running)
 
 Start your webserver (./script/server) - You may start it while the import is running.
 
-In order to send the package information to dish you would need to run an import script (can be done from any machine in your network)
-
-	use extras/push_info.rb script
+In order to send the package information to dish you would need to run an import script, either on each machine, or from one machine which ssh to others
+an example sciprt can be found at extras/push_info.rb script
 
 You would need to modify the script in order to get the host list - get it somehow (I use it from foreman)
 
