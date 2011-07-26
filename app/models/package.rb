@@ -7,6 +7,12 @@ class Package < ActiveRecord::Base
   validates_uniqueness_of :name
   validates_format_of :name, :with => /\A(\S+\s?)+\Z/, :message => "can't be blank or contain trailing white space"
 
+  scoped_search :on => :name, :complete_value => :true
+  scoped_search :in => :versions,    :on => :value, :complete_value => :true, :rename => "version"
+  scoped_search :in => :hosts,       :on => :name,  :complete_value => :true, :rename => "host"
+  scoped_search :in => :archs,       :on => :name,  :complete_value => :true, :rename => "arch"
+  scoped_search :in => :oss,         :on => :name,  :complete_value => :true, :rename => "os"
+
   def to_s
     name
   end

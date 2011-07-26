@@ -1,5 +1,5 @@
 <% title "Packages" %>
-<%= render 'common/search' %>
+<%# render 'common/search' %>
 <table>
   <tr>
     <th>Name</th>
@@ -8,8 +8,8 @@
   <% for package in @packages %>
     <tr>
       <td><%= link_to package.name, package %></td>
-      <td><%= @counter[package.id.to_s] %></td>
-      <td><%= link_to_if logged_in?, "Destroy", package, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= @counter[package.id] %></td>
+      <td><%= link_to "Destroy", package, :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
 </table>

@@ -1,7 +1,6 @@
 class PackagesController < ApplicationController
   def index
-    @search = Package.search(params[:search])
-    @packages = @search.paginate(:page => params[:page])
+    @packages = Package.paginate(:page => params[:page])
     @counter = Package.count(:conditions => {:id => @packages.map(&:id)}, :group => :package_id, :joins => :muxes)
   end
 

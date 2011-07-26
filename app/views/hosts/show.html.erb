@@ -1,5 +1,4 @@
 <% title "#{h @host.name} (#{@muxes.first.try(:os)})" %>
-<%= render "common/search", :value => :package_name_like %>
 <table>
   <tr>
     <th>Package</th>
@@ -9,9 +8,9 @@
   </tr>
   <% for mux in @muxes -%>
     <tr>
-      <td><%= link_to h(mux.package), package_path(mux.package) %></td>
-      <td><%= h mux.version %></td>
-      <td><%= h mux.arch %></td>
+      <td><%= link_to mux.package, package_path(mux.package) %></td>
+      <td><%= mux.version %></td>
+      <td><%= mux.arch %></td>
       <td><%= time_ago_in_words mux.updated_at %></td>
     </tr>
   <% end -%>

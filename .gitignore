@@ -1,9 +1,10 @@
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/
 *~
-db/*.sqlite3*
 db/schema.rb
 config/database.yml
-log/*
-tmp/*
 config/app_config.yml
 *.swp
 doc/*

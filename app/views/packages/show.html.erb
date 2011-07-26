@@ -2,23 +2,23 @@
 
 <p>
   <strong>Name:</strong>
-  <%=h @package.name %>
+  <%=@package.name %>
 </p>
 <table>
   <tr>
-    <th>Version(os)</th>
+    <th>Version (os)</th>
     <th>Hosts</th>
   </tr>
   <% @package.versions(:group => @package.oss).each do |ver| -%>
     <tr>
-      <td><strong> <%= "#{ver} <small>(#{ver.oss.to_sentence})</small>" %> </strong></td>
-      <td><%= ver.hosts.map{|h| link_to h.name, h}.join(" ") %> </td>
+      <td><strong> <%= "#{ver} <small>(#{ver.oss.to_sentence})</small>".html_safe %> </strong></td>
+      <td><%= ver.hosts.map{|h| link_to h.name, h}.join(" ").html_safe %> </td>
     </tr>
   <% end -%>
 </table>
 
 <p>
   <%= link_to "Edit", edit_package_path(@package) %> |
-  <%= link_to_if logged_in?, "Destroy", @package, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "Destroy", @package, :confirm => 'Are you sure?', :method => :delete %> |
   <%= link_to "View All", packages_path %>
 </p>
