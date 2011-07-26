@@ -8,10 +8,10 @@ class Package < ActiveRecord::Base
   validates_format_of :name, :with => /\A(\S+\s?)+\Z/, :message => "can't be blank or contain trailing white space"
 
   scoped_search :on => :name, :complete_value => :true
-  scoped_search :in => :versions,    :on => :value, :complete_value => :true, :rename => "version"
-  scoped_search :in => :hosts,       :on => :name,  :complete_value => :true, :rename => "host"
-  scoped_search :in => :archs,       :on => :name,  :complete_value => :true, :rename => "arch"
-  scoped_search :in => :oss,         :on => :name,  :complete_value => :true, :rename => "os"
+  scoped_search :in => :versions,    :on => :value, :complete_value => :true, :rename => "version", :only_explicit => true
+  scoped_search :in => :hosts,       :on => :name,  :complete_value => :true, :rename => "host", :only_explicit => true
+  scoped_search :in => :archs,       :on => :name,  :complete_value => :true, :rename => "arch",:only_explicit => true
+  scoped_search :in => :oss,         :on => :name,  :complete_value => :true, :rename => "os", :only_explicit => true
 
   def to_s
     name

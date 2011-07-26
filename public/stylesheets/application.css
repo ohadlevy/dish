@@ -74,11 +74,21 @@ a {
   margin: 0;
 }
 
-.pagination {
+.pagination, .ra {
   float: right;
 }
 #menu {
   position: absolute;
   top: 25px;
   left: 80%;
+}
+
+.auto_complete_input {
+  font-family: Verdana, Helvetica, Arial;
+  padding: 2px 20px 3px 10px;
+  margin: 0 1px 0 0;
+  font-size: 14px;
+  width: 50%;
+  border-radius: 20px;
+  border: solid 1px #507ea1;
 }

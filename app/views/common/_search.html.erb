@@ -1,7 +1,6 @@
-<span class=pagination>
-  <% value ||= "name_like" -%>
-<%= form_for @search do |f|-%>
-  <%= f.text_field value, :size => 10 %>
-  <%= f.submit "Search" %>
-<% end %>
-</span>
+<div id="my_search" class="ra">
+  <%= form_tag eval("#{controller_name}_path"), :method => "get" do %>
+    <%= auto_complete_field_tag_jquery(:search, params[:search]) %>
+    <button id='submit_search' style="font-size: 12px;">Search</button>
+  <% end -%>
+</div>

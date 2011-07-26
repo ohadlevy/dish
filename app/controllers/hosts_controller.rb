@@ -2,7 +2,7 @@ class HostsController < ApplicationController
   before_filter :verify_authenticity_token, :except => :create
 
   def index
-    @hosts = Host.paginate(:page => params[:page])
+    @hosts = Host.search_for(params[:search], :order => params[:order]).paginate(:page => params[:page])
     @counter = Host.count(:conditions => {:id => @hosts.map(&:id)}, :group => :host_id, :joins => :muxes)
   end
 
