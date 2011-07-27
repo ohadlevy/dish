@@ -4,6 +4,7 @@
 <table>
   <tr>
     <th><%= sort :name %></th>
+    <th><%= sort :os %></th>
     <th>Package Count</th>
     <th>Last Update<th>
     <th></th>
@@ -11,7 +12,8 @@
   <% for host in @hosts %>
     <tr>
       <td><%= link_to host.name, host %></td>
-      <td><%= @counter[host.id] %></td>
+      <td><%= host.os %></td>
+      <td><%= @counter[host.id] || @counter[host.id.to_s] %></td>
       <td><%= time_ago_in_words host.updated_at %></td>
       <td>
         <%= link_to "Destroy", host, :confirm => 'Are you sure?', :method => :delete %>

@@ -8,7 +8,7 @@
   <% for package in @packages %>
     <tr>
       <td><%= link_to package.name, package %></td>
-      <td><%= @counter[package.id] %></td>
+      <td><%= @counter[package.id] || @counter[package.id.to_s] %></td>
       <td><%= link_to "Destroy", package, :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
