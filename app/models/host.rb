@@ -1,5 +1,5 @@
 class Host < ActiveRecord::Base
-  has_many :muxes
+  has_many :muxes, :dependent => :destroy
   has_many :packages, :through => :muxes, :uniq => true
   has_one :os, :through => :muxes
   validates_uniqueness_of :name
